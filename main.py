@@ -1,12 +1,17 @@
-from src.utils import create_database, save_data
 from src.db_manager import DBManager
+from src.utils import create_database, create_tables, save_data
 
 
 def user_interaction() -> None:
     """Основная функция по взаимодействию с пользователем"""
-    db_name = "DB_HH"
+    db_name = "db"
     create_database(db_name)
+    print(f"База данных {db_name} создана")
+    create_tables(db_name)
+    print(f"В базе данных {db_name} созданы таблицы 'Работодатели' и 'Вакансии'")
+    print(f"Получаем данные от сайта HH.ru...")
     save_data(db_name)
+    print(f"База данных {db_name} заполнена данными с сайта HH.ru")
 
     db_manager = DBManager(db_name)
 
@@ -36,7 +41,7 @@ def user_interaction() -> None:
         elif answer == 5:
             keyword = input("Введите слово, по которому хотите отфильтровать вакансии: \n").lower()
             vacancy_list_keyword = db_manager.get_vacancies_with_keyword(keyword)
-            print("Список всех вакансий в названии которых содержатся переданные в метод слова:")
+            print("Список всех вакансий в названии которых содержится запрошенное слово:")
             for i in vacancy_list_keyword:
                 print(i)
         elif answer == 6:
@@ -66,7 +71,6 @@ def main_menu() -> int:
                 print("Можно ввести только число от 1 до 6!")
         else:
             print("Можно ввести только целое число")
-    # print("*" * 50)
     return answer
 
 
