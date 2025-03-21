@@ -40,19 +40,19 @@ def create_tables(db_name):
         with conn.cursor() as cur:
             cur.execute(
                 """CREATE TABLE employer (
-                id INTEGER PRIMARY KEY,
-                name VARCHAR(255) NOT NULL UNIQUE,
-                url TEXT)"""
+                employer_id INTEGER PRIMARY KEY,
+                employer_name VARCHAR(255) NOT NULL UNIQUE,
+                employer_url TEXT)"""
             )
 
             cur.execute(
                 """CREATE TABLE IF NOT EXISTS vacancy (
                 vacancy_id INTEGER PRIMARY KEY,
-                name VARCHAR(255) NOT NULL,
+                vacancy_name VARCHAR(255) NOT NULL,
                 salary_from INTEGER,
                 salary_to INTEGER,
-                url VARCHAR(255),
-                employer_id INTEGER REFERENCES employer(id) NOT NULL)"""
+                vacancy_url VARCHAR(255),
+                employer_id INTEGER REFERENCES employer(employer_id) NOT NULL)"""
             )
 
     conn.close()
